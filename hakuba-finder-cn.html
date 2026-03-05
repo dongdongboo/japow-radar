@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白马雪场推荐 · Japow Radar</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e1a14;
+  --surface: #152019;
+  --card: #1c2b22;
+  --border: rgba(255,255,255,0.07);
+  --border-active: rgba(120,200,140,0.3);
+  --text: #e8f0ea;
+  --muted: #7a9580;
+  --accent: #78c88c;
+  --accent-dim: rgba(120,200,140,0.15);
+  --warm: #e8c97a;
+  --warm-dim: rgba(232,201,122,0.12);
+  --blue: #7ab8e8;
+  --red-run: #e87a7a;
+  --black-run: #c8c8c8;
+  --green-run: #78c88c;
+  --blue-run: #7ab8e8;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 15% 20%, rgba(120,200,140,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 85% 80%, rgba(122,184,232,0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ── 顶部导航 ── */
+header {
+  padding: 28px 40px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.logo h1 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.logo h1 span { color: var(--accent); }
+
+.logo p {
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  margin-top: 6px;
+}
+
+.header-nav { display: flex; gap: 8px; }
+
+.nav-pill {
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  background: none;
+  font-family: 'Noto Sans SC', sans-serif;
+}
+.nav-pill:hover, .nav-pill.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+/* ── 主布局 ── */
+.app-layout {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── 左侧问卷 ── */
+.quiz-panel {
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 85px);
+  position: sticky;
+  top: 0;
+}
+
+.quiz-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 28px 0;
+}
+.quiz-scroll::-webkit-scrollbar { width: 4px; }
+.quiz-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.quiz-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.quiz-subtitle {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.question-block {
+  margin-bottom: 22px;
+  animation: fadeUp 0.4s ease forwards;
+  opacity: 0;
+}
+@keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.question-block:nth-child(1){animation-delay:0.05s}
+.question-block:nth-child(2){animation-delay:0.1s}
+.question-block:nth-child(3){animation-delay:0.15s}
+.question-block:nth-child(4){animation-delay:0.2s}
+.question-block:nth-child(5){animation-delay:0.25s}
+.question-block:nth-child(6){animation-delay:0.3s}
+.question-block:nth-child(7){animation-delay:0.35s}
+.question-block:nth-child(8){animation-delay:0.4s}
+
+.q-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.q-text {
+  font-size: 0.88rem;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.chip-group { display: flex; flex-wrap: wrap; gap: 7px; }
+
+.chip {
+  font-size: 0.75rem;
+  padding: 7px 13px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--surface);
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+.chip:hover { border-color: var(--accent); color: var(--text); }
+.chip.selected { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+.text-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 10px 14px;
+  color: var(--text);
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.15s;
+  resize: none;
+}
+.text-input:focus { border-color: var(--border-active); }
+.text-input::placeholder { color: var(--muted); }
+
+.quiz-footer {
+  padding: 18px 28px 24px;
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 4px;
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.submit-btn:hover { background: #8fd49f; }
+.submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.reset-btn {
+  width: 100%;
+  padding: 9px;
+  background: none;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.72rem;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.15s;
+}
+.reset-btn:hover { color: var(--text); border-color: var(--muted); }
+
+/* ── 右侧结果 ── */
+.results-panel {
+  padding: 36px;
+  overflow-y: auto;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  opacity: 0.5;
+}
+.empty-icon { font-size: 3rem; margin-bottom: 16px; filter: grayscale(1); }
+.empty-state h2 { font-family: 'Noto Serif SC', serif; font-size: 1.1rem; color: var(--muted); margin-bottom: 8px; }
+.empty-state p { font-size: 0.78rem; color: var(--muted); max-width: 280px; line-height: 1.6; }
+
+.loading-state { display: flex; flex-direction: column; gap: 20px; }
+.load-header { font-family: 'Noto Serif SC', serif; font-size: 1.3rem; color: var(--muted); }
+.load-bar { height: 3px; background: var(--card); border-radius: 2px; overflow: hidden; }
+.load-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--blue)); animation: loadProgress 2.5s ease forwards; }
+@keyframes loadProgress { from{width:0%} to{width:85%} }
+.load-skeleton { height: 120px; background: var(--card); border-radius: 6px; position: relative; overflow: hidden; }
+.load-skeleton::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.03),transparent); background-size:200% 100%; animation:shimmer 1.8s infinite; }
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+/* 结果 */
+.results-header { margin-bottom: 24px; }
+.results-kicker { font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 8px; }
+.results-title { font-family: 'Noto Serif SC', serif; font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 700; line-height: 1.4; color: var(--text); margin-bottom: 10px; }
+.results-intro { font-size: 0.85rem; color: var(--muted); line-height: 1.8; max-width: 640px; }
+
+.rec-cards { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+
+.rec-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+  animation: fadeUp 0.5s ease forwards;
+  opacity: 0;
+}
+.rec-card:nth-child(1){animation-delay:0.1s}
+.rec-card:nth-child(2){animation-delay:0.2s}
+.rec-card:nth-child(3){animation-delay:0.3s}
+.rec-card:hover { border-color: var(--border-active); }
+
+.rec-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 22px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.rec-rank {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--border);
+  line-height: 1;
+  margin-right: 14px;
+  flex-shrink: 0;
+}
+.rec-card.top-pick .rec-rank { color: var(--accent); }
+
+.rec-info { flex: 1; }
+.rec-name { font-family: 'Noto Serif SC', serif; font-size: 1.15rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.rec-en { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.06em; }
+
+.rec-match { text-align: right; }
+.match-score { font-family: 'Noto Serif SC', serif; font-size: 1.5rem; font-weight: 700; color: var(--accent); line-height: 1; }
+.match-label { font-size: 0.58rem; color: var(--muted); margin-top: 2px; }
+
+.rec-card-body { padding: 16px 22px; }
+.rec-why { font-size: 0.83rem; color: var(--muted); line-height: 1.8; margin-bottom: 14px; }
+
+.runs-section-title { font-size: 0.62rem; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 8px; }
+
+.runs-list { display: flex; flex-direction: column; gap: 5px; }
+.run-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--surface);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.run-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.run-dot.green  { background: var(--green-run); }
+.run-dot.blue   { background: var(--blue-run); }
+.run-dot.red    { background: var(--red-run); }
+.run-dot.black  { background: var(--black-run); border: 1px solid rgba(255,255,255,0.2); }
+.run-name { font-size: 0.8rem; color: var(--text); flex: 1; }
+.run-tag { font-size: 0.62rem; color: var(--muted); background: var(--card); padding: 2px 8px; border-radius: 10px; }
+
+/* 红书帖子风格特色区 */
+.xhs-tips {
+  background: rgba(255,70,70,0.06);
+  border: 1px solid rgba(255,100,100,0.15);
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin-bottom: 6px;
+}
+.xhs-tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: #e07070;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.xhs-body { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
+
+.rec-card-footer {
+  display: flex;
+  gap: 8px;
+  padding: 12px 22px;
+  border-top: 1px solid var(--border);
+  background: rgba(0,0,0,0.1);
+}
+.rec-link {
+  font-size: 0.65rem;
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.rec-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+.tips-block {
+  background: var(--warm-dim);
+  border: 1px solid rgba(232,201,122,0.15);
+  border-radius: 8px;
+  padding: 22px;
+  margin-top: 8px;
+  animation: fadeUp 0.5s ease 0.4s forwards;
+  opacity: 0;
+}
+.tips-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--warm);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tips-body { font-size: 0.83rem; color: var(--muted); line-height: 1.8; }
+.tips-body p { margin-bottom: 10px; }
+.tips-body p:last-child { margin-bottom: 0; }
+
+/* 追问对话 */
+.followup-section {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  animation: fadeUp 0.5s ease 0.5s forwards;
+  opacity: 0;
+}
+.followup-title { font-size: 0.62rem; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 12px; }
+
+.chat-history {
+  display: flex; flex-direction: column; gap: 10px;
+  margin-bottom: 12px; max-height: 320px; overflow-y: auto;
+}
+.chat-msg {
+  max-width: 88%;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  animation: fadeUp 0.3s ease forwards;
+}
+.chat-msg.user { background: var(--accent-dim); border: 1px solid var(--border-active); color: var(--text); align-self: flex-end; text-align: right; }
+.chat-msg.ai { background: var(--card); border: 1px solid var(--border); color: var(--muted); align-self: flex-start; }
+
+.chat-input-row { display: flex; gap: 8px; }
+.chat-input {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 10px 14px;
+  color: var(--text);
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.chat-input:focus { border-color: var(--border-active); }
+.chat-input::placeholder { color: var(--muted); }
+.chat-send {
+  padding: 10px 16px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 4px;
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.chat-send:hover { background: #8fd49f; }
+.chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
+
+@media (max-width: 860px) {
+  .app-layout { grid-template-columns: 1fr; }
+  .quiz-panel { height: auto; position: static; }
+  .results-panel { padding: 20px; }
+  header { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <h1>Japow Radar <span>雪场推荐</span></h1>
+    <p>AI 智能选场 · 7大雪场 · 全水平 · 中文服务</p>
+  </div>
+  <div class="header-nav">
+    <button class="nav-pill active">智能选场</button>
+    <button class="nav-pill" onclick="window.open('hakuba-snow-cn.html')">粉雪探测器 ↗</button>
+  </div>
+</header>
+
+<div class="app-layout">
+
+  <!-- 左侧问卷 -->
+  <aside class="quiz-panel">
+    <div class="quiz-scroll">
+      <div style="margin-bottom:24px">
+        <div class="quiz-title">找到最适合你的雪场</div>
+        <div class="quiz-subtitle">回答几个简单问题，AI 会为你推荐最合适的白马雪场、具体雪道，以及实用的当地小贴士。</div>
+      </div>
+
+      <!-- Q1: 滑雪水平 -->
+      <div class="question-block">
+        <div class="q-label">01 · 滑雪水平</div>
+        <div class="q-text">你目前的滑雪/单板水平？</div>
+        <div class="chip-group" id="q-skill">
+          <div class="chip" data-val="零基础，从未上过雪">零基础小白</div>
+          <div class="chip" data-val="初学者，能走绿道但速度较慢">初级（绿道）</div>
+          <div class="chip" data-val="中级，蓝道很稳，开始挑战红道">中级（蓝/红道）</div>
+          <div class="chip" data-val="高级，红道黑道都能应对">高级（黑道）</div>
+          <div class="chip" data-val="专业级，喜欢野雪和非压雪道">专业/野雪爱好者</div>
+        </div>
+      </div>
+
+      <!-- Q2: 项目 -->
+      <div class="question-block">
+        <div class="q-label">02 · 运动项目</div>
+        <div class="q-text">双板还是单板？</div>
+        <div class="chip-group" id="q-discipline">
+          <div class="chip" data-val="双板滑雪">⛷ 双板</div>
+          <div class="chip" data-val="单板滑雪">🏂 单板</div>
+          <div class="chip" data-val="还没决定，可能现场体验">还没决定</div>
+        </div>
+      </div>
+
+      <!-- Q3: 出行方式 -->
+      <div class="question-block">
+        <div class="q-label">03 · 出行方式</div>
+        <div class="q-text">和谁一起来？</div>
+        <div class="chip-group" id="q-group">
+          <div class="chip" data-val="独自一人">solo独行</div>
+          <div class="chip" data-val="情侣/闺蜜/基友，水平相近">两人同行</div>
+          <div class="chip" data-val="一群朋友，水平差不多">朋友团</div>
+          <div class="chip" data-val="团队出行，水平参差不齐">混合水平团队</div>
+          <div class="chip" data-val="带娃家庭出行">亲子家庭</div>
+        </div>
+      </div>
+
+      <!-- Q4: 最看重什么 -->
+      <div class="question-block">
+        <div class="q-label">04 · 最看重什么（最多选两项）</div>
+        <div class="q-text">这次来白马，你最想要什么体验？</div>
+        <div class="chip-group" id="q-priorities">
+          <div class="chip" data-val="找专业教练上课，快速提升技术">跟着教练涨技术</div>
+          <div class="chip" data-val="追粉雪，体验日本Japow">追粉❄ Japow</div>
+          <div class="chip" data-val="拍出好看的照片和视频，打卡出片">出片打卡📸</div>
+          <div class="chip" data-val="享受长坡和风景，悠闲巡游">悠闲巡游赏风景</div>
+          <div class="chip" data-val="挑战陡坡和技术地形">挑战陡坡硬地形</div>
+          <div class="chip" data-val="探索树林野雪和非压雪区域">树林野雪</div>
+          <div class="chip" data-val="好吃好喝，雪场氛围感拉满">美食+气氛</div>
+        </div>
+      </div>
+
+      <!-- Q5: 天数 -->
+      <div class="question-block">
+        <div class="q-label">05 · 滑雪天数</div>
+        <div class="q-text">这次白马行程准备滑几天？</div>
+        <div class="chip-group" id="q-days">
+          <div class="chip" data-val="1天体验">1天</div>
+          <div class="chip" data-val="2到3天">2–3天</div>
+          <div class="chip" data-val="4到7天">4–7天</div>
+          <div class="chip" data-val="超过一周">一周以上</div>
+        </div>
+      </div>
+
+      <!-- Q6: 住宿位置 -->
+      <div class="question-block">
+        <div class="q-label">06 · 住宿位置</div>
+        <div class="q-text">住在白马哪个区域（如果已知）？</div>
+        <div class="chip-group" id="q-base">
+          <div class="chip" data-val="白马村主区（Hakuba村）">白马村主区</div>
+          <div class="chip" data-val="和田野地区（Wadano）">和田野</div>
+          <div class="chip" data-val="Echo Land附近">Echo Land</div>
+          <div class="chip" data-val="Cortina/栂池附近">Cortina/栂池方向</div>
+          <div class="chip" data-val="还没订，位置灵活">还没定</div>
+        </div>
+      </div>
+
+      <!-- Q7: 拍照出片需求 -->
+      <div class="question-block">
+        <div class="q-label">07 · 出片需求</div>
+        <div class="q-text">有没有特别想拍的场景或者内容？</div>
+        <div class="chip-group" id="q-photo">
+          <div class="chip" data-val="想拍北阿尔卑斯山的壮阔全景">北阿尔卑斯全景</div>
+          <div class="chip" data-val="想拍树林粉雪飞起来的帅气镜头">树林粉雪大飞扬</div>
+          <div class="chip" data-val="想拍宽阔雪道上的帅气动作">宽道帅气动作</div>
+          <div class="chip" data-val="想找雪地温泉的氛围感场景">温泉雪景氛围感</div>
+          <div class="chip" data-val="没有特别要求">随缘就好</div>
+        </div>
+      </div>
+
+      <!-- Q8: 补充信息 -->
+      <div class="question-block">
+        <div class="q-label">08 · 其他补充</div>
+        <div class="q-text">还有什么想告诉我们的？比如身体状况、小朋友年龄、特别期待的体验等。</div>
+        <textarea class="text-input" id="q-extra" rows="3" placeholder="例如："膝盖不太好，想找坡度平缓一些的" / "带了5岁的孩子，求儿童雪场推荐" / "想找中文教练"……"></textarea>
+      </div>
+
+    </div>
+
+    <div class="quiz-footer">
+      <button class="submit-btn" id="submit-btn" onclick="getRecommendation()">
+        帮我选雪场 →
+      </button>
+      <button class="reset-btn" onclick="resetAll()">重新填写</button>
+    </div>
+  </aside>
+
+  <!-- 右侧结果 -->
+  <div class="results-panel" id="results-panel">
+    <div class="empty-state">
+      <div class="empty-icon">🏔️</div>
+      <h2>你的专属推荐即将出现</h2>
+      <p>在左侧填好你的信息，AI 向导就会为你量身定制白马雪场推荐方案。</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── 雪场知识库（中文版，针对中国滑雪者优化）──────────────────────────────
+const RESORT_KB = `
+白马山谷雪场完整指南（针对中国游客）
+
+八方尾根（Happo-One）
+- 白马最大雪场，1998年长野冬奥会举办地，最具代表性
+- 海拔：760m山脚 – 1831m山顶 | 面积209公顷 | 23条雪道
+- 难度分布：初级30% 中级43% 高级27%
+- 最适合：中高级滑雪者，想体验"白马代表作"的初访者
+- 绿道/蓝道：兔子坡（Usagi）超适合完全新手，Kurobishi双人缆车区适合初级练习，Skyliner下段也不错
+- 红道：International大回转道、Adam道，坡感很好
+- 黑道：Kurobishi陡坡、Skyline西班牙式跳台雪道
+- 单板：有不错的雪公园，但下山部分平路多，单板小白容易推板，有点累
+- 滑雪学校：白马最大，有中文教练（需提前预约），最推荐在这里上课
+- 餐饮/气氛：白马最好的山脚餐厅、居酒屋都在附近，夜场最热闹
+- 交通：白马村有免费班车，车程约10分钟
+- 出片推荐：山顶可以拍到日本北阿尔卑斯山脉全景，晴天绝美
+- 中文服务：有部分中文指示牌，部分餐厅支持微信支付
+
+白马47（Hakuba 47）
+- 中等规模，与五龙共用缆车（同一张票可以两场通滑）
+- 海拔：820m – 1676m | 面积110公顷
+- 难度分布：初级20% 中级40% 高级40%
+- 最适合：中高级滑雪者，单板爱好者，喜欢树林野雪的人
+- 蓝道：缆车沿线下段，Edelweiss区
+- 红道：1号道、7号道（长且过瘾的巡游道）
+- 黑道：The Wall陡坡、多条胶树林野雪线
+- 单板：非常友好，几乎没有平路，是日本单板圈的人气场
+- 树林：白马最容易进入的树林粉雪之一，粉雪日简直是天堂
+- 出片推荐：树林穿行、粉雪飞扬，单板动作出片极佳
+- 附近温泉：可在栂池方向或白马村找到日式温泉旅馆
+
+五龙（Goryu）
+- 与47相连，气氛更安静，更适合家庭
+- 海拔：820m – 1515m | 面积78公顷
+- 难度分布：初级35% 中级40% 高级25%
+- 最适合：家庭亲子，初级中级想要空间的人
+- 绿道/蓝道：山脚G-quad缆车区是白马最好的初学者区域之一，缆车中站附近也很适合中级
+- 红道：Panorama道（视野好），Alps 360道
+- 单板：比47更友好，新手单板推荐在五龙起步
+- 亲子：有专属儿童雪园，非常安全，设施好
+
+Cortina（Cortina）
+- 面积较小，但粉雪传说级别，与乘鞍高原雪场相连
+- 海拔：840m – 1495m | 面积63公顷
+- 难度分布：初级10% 中级35% 高级55%
+- 特别提示：完全不推荐给完全新手——初级道非常少
+- 绿道：几乎没有，山脚只有一小块练习坡
+- 蓝/红道：缆车线旁的主道
+- 黑道/野雪：每条道旁边的树林！Cortina最出名的就是"粉雪树林"，西北风来临时，降雪量通常比八方多20-30%
+- 单板：粉雪日的单板天堂，树林里的粉层可以到腰
+- 气氛：安静，主要是日本本地滑雪者，小木屋餐厅很有味道
+- 出片：树林粉雪镜头最佳，小红书上白马树林粉雪照80%来自这里
+
+栂池高原（Tsugaike）
+- 面积大，低调，家庭友好
+- 海拔：830m – 1560m | 面积167公顷
+- 难度分布：初级40% 中级40% 高级20%
+- 最适合：家庭、新手、中级想要宽阔空间的人
+- 绿道/蓝道：超多宽阔缓坡，对新手极其友好，仅次于八方的新手首选
+- 红道：上山部分有几条不错的中长红道
+- 单板：宽阔雪道整体不错
+- 亲子：儿童区非常完善，适合带小孩的家庭
+
+乘鞍高原（Norikura）
+- 与Cortina相连，小而精，北坡积雪可靠，远离人群
+- 海拔：1100m – 1550m | 面积36公顷
+- 难度分布：初级30% 中级40% 高级30%
+- 最适合：想避开人群追粉雪的中高级滑雪者
+- 特点：面积小，适合半天游或粉雪日专程前往
+- 树林：有不错的丛林滑行，且人少容易找到未破坏的粉层
+- 气氛：极安静，几乎全是日本本地人，没有游客
+
+岩岳（Iwatake）
+- 视野最佳，面朝日本阿尔卑斯山脉
+- 海拔：680m – 1289m | 面积52公顷
+- 难度分布：初级40% 中级40% 高级20%
+- 最适合：新手，中级，想要壮阔景色的所有人
+- 绿道/蓝道：宽阔平缓，非常适合学习，人也比八方少
+- 红道：上山有几条不错的红道
+- 单板：宽坡整体友好，坡度比八方更温和
+- 出片：山顶的"白色露台"（White Terrace）是拍阿尔卑斯全景的最佳观景台，出片极好
+- 气氛：安静，不拥挤，景色很治愈
+
+中国游客实用信息：
+- 中文教练：八方尾根有中文教练，需提前通过雪场网站或旅行社预约
+- 微信支付：部分雪场和餐厅支持，但不能完全依赖，建议带日元
+- 雪具租赁：各雪场山脚都有，也可以在白马村租好再去，价格差不多
+- 温泉：滑雪后泡温泉是白马最棒的结尾，推荐倉下の湯、十郎の湯，几百日元就能进
+- 最佳拍摄时间：早上开山后1-2小时（粉雪未被破坏），或下午4点后的斜阳光线
+`;
+
+let chatHistory = [];
+let currentAnswers = {};
+
+// ── 选项交互 ──────────────────────────────────────────────────────────────
+document.querySelectorAll('.chip-group').forEach(group => {
+  const isMulti = group.id === 'q-priorities' || group.id === 'q-photo';
+  group.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      if (isMulti) {
+        const selected = group.querySelectorAll('.chip.selected');
+        if (!chip.classList.contains('selected') && selected.length >= 2) return;
+        chip.classList.toggle('selected');
+      } else {
+        group.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+      }
+    });
+  });
+});
+
+function collectAnswers() {
+  const get = id => {
+    const selected = document.querySelectorAll(`#${id} .chip.selected`);
+    return Array.from(selected).map(c => c.dataset.val).join('、') || '未填写';
+  };
+  return {
+    skill: get('q-skill'),
+    discipline: get('q-discipline'),
+    group: get('q-group'),
+    priorities: get('q-priorities'),
+    days: get('q-days'),
+    base: get('q-base'),
+    photo: get('q-photo'),
+    extra: document.getElementById('q-extra').value.trim() || '无'
+  };
+}
+
+function buildSystemPrompt(answers) {
+  return `你是"小雪"——一位在日本白马山谷生活了12年的中国向导，你深爱滑雪，也最懂中国雪友的需求。你说话像一个真正懂行的老朋友，不说废话，直接给干货，偶尔夹杂点中国滑雪圈的术语，但不装腔作势。你了解中国游客来白马最在意什么：粉雪体验、拍照出片、性价比、中文服务、温泉、雪道难度是否合适。
+
+你拥有以下雪场知识库，必须严格基于此给出推荐，不要杜撰：
+${RESORT_KB}
+
+用户画像：
+- 滑雪水平：${answers.skill}
+- 运动项目：${answers.discipline}
+- 出行方式：${answers.group}
+- 最看重的体验：${answers.priorities}
+- 滑雪天数：${answers.days}
+- 住宿位置：${answers.base}
+- 拍照出片需求：${answers.photo}
+- 补充信息：${answers.extra}
+
+请严格按照以下JSON格式回复，不加任何markdown或代码块标记，纯JSON：
+{
+  "headline": "一句话点睛标题，像小红书帖子的标题，吸引人，具体（比如：粉雪初中级首选！八方+五龙两天玩透方案）",
+  "intro": "2-3句真诚的开场，说明你对这个用户的整体判断，像朋友聊天",
+  "recommendations": [
+    {
+      "rank": 1,
+      "name": "雪场中文名",
+      "en": "英文名",
+      "match": 95,
+      "why": "2-3句话，专门说明为什么这个雪场最适合这个具体用户，要有针对性，不泛泛而谈",
+      "xhs_tip": "一句小红书风格的种草话，突出这个雪场对该用户最吸引人的点，15字以内",
+      "runs": [
+        {"color": "green|blue|red|black", "name": "雪道名称", "tip": "这条道适合他们的具体理由，一句话"},
+        {"color": "green|blue|red|black", "name": "雪道名称", "tip": "一句话"},
+        {"color": "green|blue|red|black", "name": "雪道名称", "tip": "一句话"}
+      ],
+      "cam": "官网摄像头链接",
+      "site": "官网链接"
+    }
+  ],
+  "tips": "给这个用户的实用贴士，3段，包括：(1)第一天怎么安排更顺；(2)哪些实际注意事项（装备、交通、餐饮）；(3)中国游客特别要注意的事（比如微信支付、中文教练预约、温泉推荐）。文风像小红书笔记的攻略部分。",
+  "followup_prompt": "一句自然的收尾邀请追问，比如：还想知道雪具怎么租？教练哪里约？或者拍照位置推荐？"
+}
+
+给出2-3个雪场推荐，按匹配度排序。对完全新手绝对不推荐Cortina为首选。喜欢出片追粉的一定要提Cortina树林。`;
+}
+
+const RESORT_LINKS = {
+  '八方尾根': { cam:'https://www.happo-one.jp/en/webcam/', site:'https://www.happo-one.jp/en/' },
+  '白马47':   { cam:'https://www.hakuba47.co.jp/en/', site:'https://www.hakuba47.co.jp/en/' },
+  '五龙':     { cam:'https://goryu.hakuba.ne.jp/en/', site:'https://goryu.hakuba.ne.jp/en/' },
+  '栂池高原': { cam:'https://www.tsugaike.co.jp', site:'https://www.tsugaike.co.jp' },
+  'Cortina':   { cam:'https://ski-cortina.com/en/', site:'https://ski-cortina.com/en/' },
+  '乘鞍高原': { cam:'https://ski-norikura.co.jp', site:'https://ski-norikura.co.jp' },
+  '岩岳':     { cam:'https://iwatake.com/en/webcam/', site:'https://iwatake.com/en/' },
+};
+
+function getLinks(name) {
+  for (const [key, val] of Object.entries(RESORT_LINKS)) {
+    if (name.includes(key) || key.includes(name)) return val;
+  }
+  return { cam:'#', site:'#' };
+}
+
+async function getRecommendation() {
+  const answers = collectAnswers();
+  currentAnswers = answers;
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = '正在为你选场…';
+
+  showLoading();
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: buildSystemPrompt(answers),
+        messages: [{ role:'user', content:'请给我个性化的白马雪场推荐。' }]
+      })
+    });
+
+    const data = await response.json();
+    const raw = data.content?.map(b => b.text||'').join('') || '';
+    const clean = raw.replace(/```json|```/g,'').trim();
+    const result = JSON.parse(clean);
+
+    chatHistory = [
+      { role:'user', content:`我的情况：水平=${answers.skill}，项目=${answers.discipline}，同行=${answers.group}，最看重=${answers.priorities}，天数=${answers.days}，住宿=${answers.base}，出片需求=${answers.photo}，补充=${answers.extra}` },
+      { role:'assistant', content: raw }
+    ];
+
+    renderResults(result);
+  } catch(err) {
+    showError(err.message);
+  }
+
+  btn.disabled = false;
+  btn.textContent = '帮我选雪场 →';
+}
+
+function renderResults(result) {
+  const panel = document.getElementById('results-panel');
+
+  const cardsHTML = (result.recommendations||[]).map((rec, i) => {
+    const isTop = i === 0;
+    const links = getLinks(rec.name);
+    const runsHTML = (rec.runs||[]).map(run => `
+      <div class="run-item">
+        <div class="run-dot ${run.color}"></div>
+        <div class="run-name">${run.name}</div>
+        <div class="run-tag">${run.tip}</div>
+      </div>`).join('');
+
+    const runColorLabel = {'green':'绿道','blue':'蓝道','red':'红道','black':'黑道'};
+
+    return `
+      <div class="rec-card ${isTop?'top-pick':''}">
+        <div class="rec-card-top">
+          <div style="display:flex;align-items:flex-start">
+            <div class="rec-rank">${String(rec.rank).padStart(2,'0')}</div>
+            <div class="rec-info">
+              <div class="rec-name">${rec.name}</div>
+              <div class="rec-en">${rec.en || ''} · ${isTop?'✦ 最适合你':'备选推荐'}</div>
+            </div>
+          </div>
+          <div class="rec-match">
+            <div class="match-score">${rec.match}%</div>
+            <div class="match-label">匹配度</div>
+          </div>
+        </div>
+        <div class="rec-card-body">
+          <div class="rec-why">${rec.why}</div>
+          ${rec.xhs_tip ? `
+          <div class="xhs-tips">
+            <div class="xhs-tag">📕 小红书种草</div>
+            <div class="xhs-body">${rec.xhs_tip}</div>
+          </div>` : ''}
+          <div class="runs-section-title" style="margin-top:14px">推荐雪道</div>
+          <div class="runs-list">${runsHTML}</div>
+        </div>
+        <div class="rec-card-footer">
+          <a class="rec-link" href="${links.cam}" target="_blank">📷 实时摄像</a>
+          <a class="rec-link" href="${links.site}" target="_blank">⛷ 官方网站</a>
+          <a class="rec-link" href="hakuba-snow-cn.html">❄ 雪况预报</a>
+        </div>
+      </div>`;
+  }).join('');
+
+  const tipsParas = (result.tips||'').split('\n').filter(p=>p.trim()).map(p=>`<p>${p}</p>`).join('');
+
+  panel.innerHTML = `
+    <div class="results-header">
+      <div class="results-kicker">个性化推荐 · 白马山谷 · AI向导小雪</div>
+      <div class="results-title">${result.headline||'你的白马滑雪方案'}</div>
+      <div class="results-intro">${result.intro||''}</div>
+    </div>
+
+    <div class="rec-cards">${cardsHTML}</div>
+
+    <div class="tips-block">
+      <div class="tips-title">💡 小雪的白马攻略</div>
+      <div class="tips-body">${tipsParas}</div>
+    </div>
+
+    <div class="followup-section">
+      <div class="followup-title">继续问小雪 · 任何问题都可以</div>
+      <div class="chat-history" id="chat-history">
+        <div class="chat-msg ai">${result.followup_prompt||'还有什么想问的？比如怎么预约中文教练、哪里吃饭、温泉推荐……'}</div>
+      </div>
+      <div class="chat-input-row">
+        <input class="chat-input" id="chat-input" placeholder="比如：怎么预约中文教练？/ 孩子几岁可以开始学？/ 租雪具多少钱？"
+          onkeydown="if(event.key==='Enter') sendFollowup()">
+        <button class="chat-send" id="chat-send" onclick="sendFollowup()">发送</button>
+      </div>
+    </div>
+  `;
+}
+
+async function sendFollowup() {
+  const input = document.getElementById('chat-input');
+  const send = document.getElementById('chat-send');
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  const historyEl = document.getElementById('chat-history');
+  const userMsg = document.createElement('div');
+  userMsg.className = 'chat-msg user';
+  userMsg.textContent = msg;
+  historyEl.appendChild(userMsg);
+  historyEl.scrollTop = historyEl.scrollHeight;
+
+  input.value = '';
+  send.disabled = true;
+  send.textContent = '…';
+
+  chatHistory.push({ role:'user', content: msg });
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: `你是"小雪"，在白马山谷生活12年的中国向导，用中文友好地回答追问。回答简洁（3-5句），像朋友聊天，给实际有用的信息。参考知识库：\n${RESORT_KB}\n用户画像：${JSON.stringify(currentAnswers)}`,
+        messages: chatHistory
+      })
+    });
+
+    const data = await response.json();
+    const reply = data.content?.map(b=>b.text||'').join('')||'抱歉，暂时无法回答，稍后再试。';
+    chatHistory.push({ role:'assistant', content: reply });
+
+    const aiMsg = document.createElement('div');
+    aiMsg.className = 'chat-msg ai';
+    aiMsg.textContent = reply;
+    historyEl.appendChild(aiMsg);
+    historyEl.scrollTop = historyEl.scrollHeight;
+  } catch(e) {
+    const errMsg = document.createElement('div');
+    errMsg.className = 'chat-msg ai';
+    errMsg.textContent = '网络出了点小问题，稍后再试试吧~';
+    historyEl.appendChild(errMsg);
+  }
+
+  send.disabled = false;
+  send.textContent = '发送';
+}
+
+function showLoading() {
+  document.getElementById('results-panel').innerHTML = `
+    <div class="loading-state">
+      <div class="load-header">小雪正在为你选场…</div>
+      <div class="load-bar"><div class="load-bar-fill"></div></div>
+      <div class="load-skeleton"></div>
+      <div class="load-skeleton" style="height:80px"></div>
+      <div class="load-skeleton" style="height:80px"></div>
+    </div>`;
+}
+
+function showError(msg) {
+  document.getElementById('results-panel').innerHTML = `
+    <div class="empty-state">
+      <div class="empty-icon">⚠️</div>
+      <h2>暂时无法连接AI</h2>
+      <p>请检查网络后重试。错误信息：${msg}</p>
+    </div>`;
+}
+
+function resetAll() {
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  document.getElementById('q-extra').value = '';
+  document.getElementById('results-panel').innerHTML = `
+    <div class="empty-state">
+      <div class="empty-icon">🏔️</div>
+      <h2>你的专属推荐即将出现</h2>
+      <p>在左侧填好你的信息，AI 向导就会为你量身定制白马雪场推荐方案。</p>
+    </div>`;
+  chatHistory = [];
+  currentAnswers = {};
+}
+</script>
+</body>
+</html>
