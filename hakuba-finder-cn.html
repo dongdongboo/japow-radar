@@ -4,7 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>白马雪场推荐 · Japow Radar</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'AlibabaPuHuiTi';
+  src: url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-55-Regular/AlibabaPuHuiTi-3-55-Regular.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'AlibabaPuHuiTi';
+  src: url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-65-Medium/AlibabaPuHuiTi-3-65-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+</style>
 <style>
 :root {
   --bg: #0e1a14;
@@ -30,7 +44,7 @@
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: 'AlibabaPuHuiTi', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-weight: 300;
   min-height: 100vh;
   display: flex;
@@ -472,7 +486,7 @@ header {
     <p>AI 智能选场 · 7大雪场 · 全水平 · 中文服务</p>
   </div>
   <div class="header-nav">
-    <button class="nav-pill active">智能选场</button>
+    <button class="nav-pill" onclick="window.location='index.html'">← 首页</button>
     <button class="nav-pill" onclick="window.open('hakuba-snow-cn.html')">粉雪探测器 ↗</button>
   </div>
 </header>

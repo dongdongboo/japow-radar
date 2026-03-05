@@ -4,7 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>粉雪探测器 · Japow Radar 白马</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'AlibabaPuHuiTi';
+  src: url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-55-Regular/AlibabaPuHuiTi-3-55-Regular.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'AlibabaPuHuiTi';
+  src: url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-65-Medium/AlibabaPuHuiTi-3-65-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+</style>
 <style>
 :root {
   --ink: #0d0d0d;
@@ -30,7 +44,7 @@
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: 'AlibabaPuHuiTi', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-weight: 300;
   min-height: 100vh;
 }
@@ -583,7 +597,7 @@ footer a { color: var(--cold); text-decoration: none; }
 
   <header class="masthead">
     <div class="masthead-top">
-      <span>白马山谷 · 长野县，日本</span>
+      <span><a href="index.html" style="color:var(--slate);text-decoration:none;letter-spacing:0.08em">← Japow Radar</a></span>
       <span id="today-date">—</span>
       <span style="text-align:right">2025–2026 雪季</span>
     </div>
