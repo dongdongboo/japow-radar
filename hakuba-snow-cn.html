@@ -1066,6 +1066,15 @@ async function generateBriefing(results) {
     });
 
     const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status} — ${data.error || JSON.stringify(data)}`);
+    }
+
+    if (!data.content) {
+      throw new Error(`无内容返回：${JSON.stringify(data)}`);
+    }
+
     const text = data.content?.map(b => b.text||'').join('') || '';
     const confMatch = text.match(/可信度[：:]\s*(高|中|低)\s*[|｜]\s*(.+)/);
     const confLevel = confMatch?.[1] === '高' ? 'high' : confMatch?.[1] === '低' ? 'low' : 'medium';
