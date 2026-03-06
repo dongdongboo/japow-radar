@@ -38,7 +38,7 @@ exports.handler = async function(event, context) {
       system_instruction: systemPrompt ? { parts: [{ text: systemPrompt }] } : undefined,
       contents: contents,
       generationConfig: {
-        maxOutputTokens: body.max_tokens || 1000,
+        maxOutputTokens: body.max_tokens || 2000,
         temperature: 0.7
       }
     });
