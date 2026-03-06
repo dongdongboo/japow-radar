@@ -44,7 +44,7 @@ exports.handler = async function(event, context) {
     });
 
     const apiKey = process.env.GEMINI_API_KEY;
-    const model = 'gemini-2.0-flash';
+    const model = 'gemini-2.5-flash';
 
     const data = await new Promise((resolve, reject) => {
       const options = {
